@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Database\PdoFactory;
 use App\Http\ExceptionHandler;
 use App\Http\Request;
 use App\Http\Router;
@@ -21,6 +22,14 @@ $renderer = new SmartyTemplateRenderer($smarty);
 $exceptionHandler = new ExceptionHandler($renderer, $config['app']['debug']);
 set_exception_handler([$exceptionHandler, 'handleException']);
 set_error_handler([$exceptionHandler, 'handleError']);
+
+$pdo = (new PdoFactory(
+    $config['db']['host'],
+    $config['db']['port'],
+    $config['db']['database'],
+    $config['db']['user'],
+    $config['db']['password'],
+))->create();
 
 $router = new Router(require dirname(__DIR__) . '/config/routes.php', []);
 $router->dispatch(Request::fromGlobals())->send();

@@ -9,6 +9,13 @@ return [
         'name' => 'Блог',
         'debug' => getenv('APP_DEBUG') === '1',
     ],
+    'db' => [
+        'host' => (string) getenv('DB_HOST'),
+        'port' => (int) getenv('DB_PORT'),
+        'database' => (string) getenv('DB_NAME'),
+        'user' => (string) getenv('DB_USER'),
+        'password' => (string) getenv('DB_PASSWORD'),
+    ],
     'view' => [
         'template_dir' => $rootDir . '/templates',
         'compile_dir' => $rootDir . '/var/smarty/compile',
