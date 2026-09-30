@@ -6,6 +6,7 @@ namespace App\Repository;
 
 use App\Dto\CategoryDto;
 use App\Dto\CategoryWithPostsDto;
+use App\Dto\NewCategoryDto;
 
 interface CategoryRepositoryInterface
 {
@@ -17,4 +18,11 @@ interface CategoryRepositoryInterface
     public function findAllWithLatestPosts(int $postsPerCategory): array;
 
     public function findById(int $id): ?CategoryDto;
+
+    /**
+     * @return int id of the new category
+     */
+    public function add(NewCategoryDto $category): int;
+
+    public function deleteAll(): void;
 }

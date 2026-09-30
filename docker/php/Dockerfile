@@ -1,6 +1,8 @@
 FROM php:8.3-fpm-alpine
 
-RUN docker-php-ext-install pdo_mysql
+RUN apk add --no-cache libjpeg-turbo-dev libpng-dev \
+    && docker-php-ext-configure gd --with-jpeg \
+    && docker-php-ext-install pdo_mysql gd
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 

@@ -20,6 +20,13 @@ return [
         'home_posts_per_category' => 3,
         'posts_per_page' => 10,
         'similar_posts_limit' => 3,
+        'upload_dir' => $rootDir . '/public/uploads/posts',
+        'upload_public_path' => 'uploads/posts',
+    ],
+    'seed' => [
+        'categories' => 6,
+        'posts' => 60,
+        'max_categories_per_post' => 3,
     ],
     'view' => [
         'template_dir' => $rootDir . '/templates',

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Dto\CategoryDto;
+use App\Dto\NewPostDto;
 use App\Dto\PostDto;
 use App\Dto\PostPreviewDto;
 use App\Enum\PostSort;
@@ -89,6 +90,45 @@ final class PdoPostRepository implements PostRepositoryInterface
         $statement->execute();
 
         return $this->toPostPreviews($statement->fetchAll());
+    }
+
+    public function add(NewPostDto $post): int
+    {
+        // A post without its category links must never be visible, so both go in one transaction.
+        $this->pdo->beginTransaction();
+
+        $statement = $this->pdo->prepare(
+            'INSERT INTO posts (title, description, content, image, views, published_at)
+            VALUES (:title, :description, :content, :image, :views, :publishedAt)'
+        );
+        $statement->bindValue(':title', $post->title);
+        $statement->bindValue(':description', $post->description);
+        $statement->bindValue(':content', $post->content);
+        $statement->bindValue(':image', $post->imagePath, $post->imagePath === null ? PDO::PARAM_NULL : PDO::PARAM_STR);
+        $statement->bindValue(':views', $post->views, PDO::PARAM_INT);
+        $statement->bindValue(':publishedAt', $post->publishedAt->format('Y-m-d H:i:s'));
+        $statement->execute();
+        $postId = (int) $this->pdo->lastInsertId();
+
+        // One prepared statement, executed once per category.
+        $linkStatement = $this->pdo->prepare(
+            'INSERT INTO category_post (category_id, post_id) VALUES (:categoryId, :postId)'
+        );
+        $linkStatement->bindValue(':postId', $postId, PDO::PARAM_INT);
+        foreach ($post->categoryIds as $categoryId) {
+            $linkStatement->bindValue(':categoryId', $categoryId, PDO::PARAM_INT);
+            $linkStatement->execute();
+        }
+
+        $this->pdo->commit();
+
+        return $postId;
+    }
+
+    public function deleteAll(): void
+    {
+        // Links in category_post go away via ON DELETE CASCADE.
+        $this->pdo->exec('DELETE FROM posts');
     }
 
     /**

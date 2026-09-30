@@ -5,3 +5,5 @@
 .DS_Store
 /var/
 /public/assets/css/
+/public/uploads/posts/*
+!/public/uploads/posts/.gitkeep

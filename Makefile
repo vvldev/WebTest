@@ -1,4 +1,4 @@
-.PHONY: up down sh logs install db-reset
+.PHONY: up down sh logs install db-reset seed
 
 up:
 	docker compose up -d --build
@@ -19,3 +19,6 @@ install:
 db-reset:
 	docker compose down -v
 	$(MAKE) up
+
+seed:
+	docker compose exec php php bin/seed.php

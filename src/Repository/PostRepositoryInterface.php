@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
+use App\Dto\NewPostDto;
 use App\Dto\PostDto;
 use App\Dto\PostPreviewDto;
 use App\Enum\PostSort;
@@ -30,4 +31,13 @@ interface PostRepositoryInterface
      * @return list<PostPreviewDto>
      */
     public function findSimilar(int $postId, int $limit): array;
+
+    /**
+     * Saves the post together with its category links.
+     *
+     * @return int id of the new post
+     */
+    public function add(NewPostDto $post): int;
+
+    public function deleteAll(): void;
 }
