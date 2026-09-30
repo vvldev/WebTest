@@ -1,0 +1,20 @@
+$color-bg: #f6f6f3;
+$color-surface: #ffffff;
+$color-text: #1f2328;
+$color-muted: #6b7280;
+$color-border: #e3e3de;
+$color-accent: #2f5bea;
+$color-accent-hover: #1e3fae;
+
+$font-base: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+$font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+$container-width: 1200px;
+$gutter: 16px;
+$gutter-lg: 32px;
+$radius: 8px;
+
+$breakpoints: (
+  md: 768px,
+  lg: 1024px,
+);

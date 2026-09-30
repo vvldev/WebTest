@@ -1,0 +1,53 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.error {
+  text-align: center;
+  padding-block: 32px;
+
+  @include respond-to(md) {
+    padding-block: 64px;
+  }
+
+  &__code {
+    font-size: 4rem;
+    font-weight: 800;
+    line-height: 1;
+    color: $color-accent;
+
+    @include respond-to(md) {
+      font-size: 6rem;
+    }
+  }
+
+  &__message {
+    margin-block: 16px 24px;
+  }
+
+  &__link {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: $radius;
+    background-color: $color-accent;
+    color: $color-surface;
+    text-decoration: none;
+
+    &:hover {
+      background-color: $color-accent-hover;
+      color: $color-surface;
+    }
+  }
+
+  &__details {
+    margin-top: 32px;
+    padding: 16px;
+    overflow-x: auto;
+    border: 1px solid $color-border;
+    border-radius: $radius;
+    background-color: $color-surface;
+    font-family: $font-mono;
+    font-size: 0.8125rem;
+    text-align: left;
+    white-space: pre;
+  }
+}

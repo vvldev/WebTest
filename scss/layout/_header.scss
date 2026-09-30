@@ -1,0 +1,23 @@
+@use "../abstracts/variables" as *;
+
+.header {
+  background-color: $color-surface;
+  border-bottom: 1px solid $color-border;
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    min-height: 56px;
+  }
+
+  &__logo {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: $color-text;
+    text-decoration: none;
+
+    &:hover {
+      color: $color-accent;
+    }
+  }
+}

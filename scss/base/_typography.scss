@@ -1,0 +1,36 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+body {
+  font-family: $font-base;
+  font-size: 16px;
+  line-height: 1.6;
+  color: $color-text;
+  background-color: $color-bg;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.25;
+}
+
+h1 {
+  font-size: 1.75rem;
+
+  @include respond-to(md) {
+    font-size: 2.25rem;
+  }
+}
+
+h2 {
+  font-size: 1.375rem;
+}
+
+a {
+  color: $color-accent;
+
+  &:hover {
+    color: $color-accent-hover;
+  }
+}

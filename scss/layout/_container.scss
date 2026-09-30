@@ -1,0 +1,21 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.container {
+  width: 100%;
+  max-width: $container-width;
+  margin-inline: auto;
+  padding-inline: $gutter;
+
+  @include respond-to(lg) {
+    padding-inline: $gutter-lg;
+  }
+}
+
+main.container {
+  padding-block: 24px;
+
+  @include respond-to(md) {
+    padding-block: 40px;
+  }
+}

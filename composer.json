@@ -1,0 +1,17 @@
+{
+    "name": "webtest/blog",
+    "description": "Blog with categories and posts in plain PHP",
+    "type": "project",
+    "require": {
+        "php": ">=8.1",
+        "smarty/smarty": "^5"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}

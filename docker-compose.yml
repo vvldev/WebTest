@@ -2,7 +2,7 @@ services:
   nginx:
     image: nginx:1.27-alpine
     ports:
-      - "8080:80"
+      - "${APP_PORT:-8080}:80"
     volumes:
       - ./:/var/www/html:ro
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
@@ -34,6 +34,13 @@ services:
       interval: 5s
       timeout: 5s
       retries: 20
+
+  assets:
+    image: node:20-alpine
+    working_dir: /app
+    volumes:
+      - ./:/app
+    command: npx --yes sass@1 scss/main.scss public/assets/css/app.css --watch --no-source-map
 
 volumes:
   mysql-data:
