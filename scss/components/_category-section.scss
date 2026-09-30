@@ -1,0 +1,53 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.category-section {
+  & + & {
+    margin-top: 40px;
+    padding-top: 40px;
+    border-top: 1px solid $color-border;
+  }
+
+  &__header {
+    margin-bottom: 20px;
+  }
+
+  &__description {
+    margin-top: 6px;
+    color: $color-muted;
+  }
+
+  &__posts {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+
+    @include respond-to(md) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include respond-to(lg) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  &__all {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: 1px solid $color-accent;
+    border-radius: $radius;
+    font-weight: 600;
+    text-decoration: none;
+
+    &:hover {
+      background-color: $color-accent;
+      color: $color-surface;
+    }
+  }
+
+  &__empty {
+    color: $color-muted;
+    text-align: center;
+  }
+}

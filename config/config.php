@@ -16,6 +16,9 @@ return [
         'user' => (string) getenv('DB_USER'),
         'password' => (string) getenv('DB_PASSWORD'),
     ],
+    'blog' => [
+        'home_posts_per_category' => 3,
+    ],
     'view' => [
         'template_dir' => $rootDir . '/templates',
         'compile_dir' => $rootDir . '/var/smarty/compile',

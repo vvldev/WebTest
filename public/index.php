@@ -2,10 +2,12 @@
 
 declare(strict_types=1);
 
+use App\Controller\HomeController;
 use App\Database\PdoFactory;
 use App\Http\ExceptionHandler;
 use App\Http\Request;
 use App\Http\Router;
+use App\Repository\PdoCategoryRepository;
 use App\View\SmartyFactory;
 use App\View\SmartyTemplateRenderer;
 
@@ -31,5 +33,15 @@ $pdo = (new PdoFactory(
     $config['db']['password'],
 ))->create();
 
-$router = new Router(require dirname(__DIR__) . '/config/routes.php', []);
+$categoryRepository = new PdoCategoryRepository($pdo);
+
+$controllers = [
+    HomeController::class => new HomeController(
+        $categoryRepository,
+        $renderer,
+        $config['blog']['home_posts_per_category'],
+    ),
+];
+
+$router = new Router(require dirname(__DIR__) . '/config/routes.php', $controllers);
 $router->dispatch(Request::fromGlobals())->send();

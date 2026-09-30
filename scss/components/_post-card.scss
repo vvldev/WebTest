@@ -1,0 +1,54 @@
+@use "../abstracts/variables" as *;
+
+.post-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid $color-border;
+  border-radius: $radius;
+  background-color: $color-surface;
+
+  &__image {
+    width: 100%;
+    aspect-ratio: 1200 / 630;
+    object-fit: cover;
+  }
+
+  &__body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 16px;
+  }
+
+  &__title {
+    font-size: 1.125rem;
+    overflow-wrap: anywhere;
+  }
+
+  &__link {
+    color: $color-text;
+    text-decoration: none;
+
+    &:hover {
+      color: $color-accent;
+    }
+  }
+
+  &__description {
+    margin-top: 8px;
+    color: $color-muted;
+    overflow-wrap: anywhere;
+  }
+
+  // Pushed to the bottom so meta lines up across cards of different height.
+  &__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 16px;
+    margin-top: auto;
+    padding-top: 12px;
+    color: $color-muted;
+    font-size: 0.875rem;
+  }
+}
