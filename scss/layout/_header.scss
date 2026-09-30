@@ -7,17 +7,27 @@
   &__inner {
     display: flex;
     align-items: center;
-    min-height: 56px;
+    min-height: 64px;
   }
 
   &__logo {
-    font-size: 1.25rem;
-    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.375rem;
+    font-weight: 800;
     color: $color-text;
     text-decoration: none;
 
     &:hover {
       color: $color-accent;
     }
+  }
+
+  &__mark {
+    width: 28px;
+    height: 28px;
+    border-radius: $radius-small;
+    background-color: $color-accent;
   }
 }

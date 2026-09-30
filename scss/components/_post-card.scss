@@ -18,11 +18,12 @@
     display: flex;
     flex: 1;
     flex-direction: column;
-    padding: 16px;
+    padding: 18px;
   }
 
   &__title {
     font-size: 1.125rem;
+    font-weight: 700;
     overflow-wrap: anywhere;
   }
 

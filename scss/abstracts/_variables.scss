@@ -1,18 +1,20 @@
-$color-bg: #f6f6f3;
+$color-bg: #f3f8fe;
 $color-surface: #ffffff;
-$color-text: #1f2328;
-$color-muted: #6b7280;
-$color-border: #e3e3de;
-$color-accent: #2f5bea;
-$color-accent-hover: #1e3fae;
+$color-text: #0f2540;
+$color-muted: #4a6180;
+$color-border: #d6e6f7;
+$color-accent: #1565c0;
+$color-accent-hover: #0d47a1;
 
-$font-base: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+$font-base: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
 $font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
 $container-width: 1200px;
 $gutter: 16px;
 $gutter-lg: 32px;
-$radius: 8px;
+$radius: 14px;
+$radius-small: 8px;
+$radius-pill: 999px;
 
 $breakpoints: (
   md: 768px,

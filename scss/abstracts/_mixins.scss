@@ -11,3 +11,18 @@
     @content;
   }
 }
+
+// Responsive grid of post cards: 1 column on phones, 2 on tablets, 3 on desktops.
+@mixin post-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+
+  @include respond-to(md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include respond-to(lg) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

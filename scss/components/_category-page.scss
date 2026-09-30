@@ -1,0 +1,24 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.category-page {
+  &__header {
+    margin-bottom: 24px;
+  }
+
+  &__description {
+    margin-top: 8px;
+    color: $color-muted;
+    font-size: 1.0625rem;
+  }
+
+  &__posts {
+    @include post-grid;
+  }
+
+  &__empty {
+    padding-block: 32px;
+    color: $color-muted;
+    text-align: center;
+  }
+}

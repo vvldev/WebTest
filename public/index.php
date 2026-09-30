@@ -2,12 +2,16 @@
 
 declare(strict_types=1);
 
+use App\Controller\CategoryController;
 use App\Controller\HomeController;
 use App\Database\PdoFactory;
 use App\Http\ExceptionHandler;
 use App\Http\Request;
 use App\Http\Router;
 use App\Repository\PdoCategoryRepository;
+use App\Repository\PdoPostRepository;
+use App\Repository\RowMapper;
+use App\Service\PostService;
 use App\View\SmartyFactory;
 use App\View\SmartyTemplateRenderer;
 
@@ -33,7 +37,11 @@ $pdo = (new PdoFactory(
     $config['db']['password'],
 ))->create();
 
-$categoryRepository = new PdoCategoryRepository($pdo);
+$rowMapper = new RowMapper();
+$categoryRepository = new PdoCategoryRepository($pdo, $rowMapper);
+$postRepository = new PdoPostRepository($pdo, $rowMapper);
+
+$postService = new PostService($postRepository, $config['blog']['posts_per_page']);
 
 $controllers = [
     HomeController::class => new HomeController(
@@ -41,6 +49,7 @@ $controllers = [
         $renderer,
         $config['blog']['home_posts_per_category'],
     ),
+    CategoryController::class => new CategoryController($categoryRepository, $postService, $renderer),
 ];
 
 $router = new Router(require dirname(__DIR__) . '/config/routes.php', $controllers);

@@ -18,6 +18,7 @@ return [
     ],
     'blog' => [
         'home_posts_per_category' => 3,
+        'posts_per_page' => 10,
     ],
     'view' => [
         'template_dir' => $rootDir . '/templates',

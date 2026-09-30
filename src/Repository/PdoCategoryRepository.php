@@ -6,14 +6,14 @@ namespace App\Repository;
 
 use App\Dto\CategoryDto;
 use App\Dto\CategoryWithPostsDto;
-use App\Dto\PostPreviewDto;
-use DateTimeImmutable;
 use PDO;
 
 final class PdoCategoryRepository implements CategoryRepositoryInterface
 {
-    public function __construct(private readonly PDO $pdo)
-    {
+    public function __construct(
+        private readonly PDO $pdo,
+        private readonly RowMapper $rowMapper,
+    ) {
     }
 
     public function findAllWithLatestPosts(int $postsPerCategory): array
@@ -37,6 +37,16 @@ final class PdoCategoryRepository implements CategoryRepositoryInterface
         return $this->groupByCategory($statement->fetchAll());
     }
 
+    public function findById(int $id): ?CategoryDto
+    {
+        $statement = $this->pdo->prepare('SELECT id, name, description FROM categories WHERE id = :id');
+        $statement->bindValue(':id', $id, PDO::PARAM_INT);
+        $statement->execute();
+        $row = $statement->fetch();
+
+        return $row === false ? null : $this->rowMapper->toCategory($row);
+    }
+
     /**
      * @param list<array<string, mixed>> $rows
      * @return list<CategoryWithPostsDto>
@@ -47,8 +57,8 @@ final class PdoCategoryRepository implements CategoryRepositoryInterface
         $postsByCategory = [];
         foreach ($rows as $row) {
             $categoryId = (int) $row['category_id'];
-            $categories[$categoryId] ??= $this->toCategory($row);
-            $postsByCategory[$categoryId][] = $this->toPostPreview($row);
+            $categories[$categoryId] ??= $this->rowMapper->toCategory($row, 'category_');
+            $postsByCategory[$categoryId][] = $this->rowMapper->toPostPreview($row);
         }
 
         $result = [];
@@ -57,32 +67,5 @@ final class PdoCategoryRepository implements CategoryRepositoryInterface
         }
 
         return $result;
-    }
-
-    /**
-     * @param array<string, mixed> $row
-     */
-    private function toCategory(array $row): CategoryDto
-    {
-        return new CategoryDto(
-            (int) $row['category_id'],
-            (string) $row['category_name'],
-            (string) $row['category_description'],
-        );
-    }
-
-    /**
-     * @param array<string, mixed> $row
-     */
-    private function toPostPreview(array $row): PostPreviewDto
-    {
-        return new PostPreviewDto(
-            (int) $row['id'],
-            (string) $row['title'],
-            (string) $row['description'],
-            $row['image'] === null ? null : (string) $row['image'],
-            (int) $row['views'],
-            new DateTimeImmutable((string) $row['published_at']),
-        );
     }
 }

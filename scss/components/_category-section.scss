@@ -3,9 +3,7 @@
 
 .category-section {
   & + & {
-    margin-top: 40px;
-    padding-top: 40px;
-    border-top: 1px solid $color-border;
+    margin-top: 48px;
   }
 
   &__header {
@@ -18,30 +16,21 @@
   }
 
   &__posts {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
-
-    @include respond-to(md) {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    @include respond-to(lg) {
-      grid-template-columns: repeat(3, 1fr);
-    }
+    @include post-grid;
   }
 
   &__all {
     display: inline-block;
     margin-top: 20px;
-    padding: 10px 20px;
-    border: 1px solid $color-accent;
-    border-radius: $radius;
+    padding: 12px 22px;
+    border-radius: $radius-pill;
+    background-color: $color-accent;
+    color: $color-surface;
     font-weight: 600;
     text-decoration: none;
 
     &:hover {
-      background-color: $color-accent;
+      background-color: $color-accent-hover;
       color: $color-surface;
     }
   }

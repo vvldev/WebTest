@@ -1,0 +1,46 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 32px;
+
+  &__link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0 14px;
+    border: 1px solid $color-border;
+    border-radius: $radius-pill;
+    background-color: $color-surface;
+    color: $color-text;
+    font-weight: 600;
+    text-decoration: none;
+
+    &:hover {
+      border-color: $color-accent;
+      color: $color-accent;
+    }
+
+    &--active,
+    &--active:hover {
+      border-color: $color-accent;
+      background-color: $color-accent;
+      color: $color-surface;
+    }
+  }
+
+  // On phones prev/next shrink to arrows so the whole bar fits one line.
+  &__text {
+    display: none;
+
+    @include respond-to(md) {
+      display: inline;
+    }
+  }
+}

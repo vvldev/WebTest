@@ -26,8 +26,9 @@
 
   &__link {
     display: inline-block;
-    padding: 10px 20px;
-    border-radius: $radius;
+    padding: 12px 22px;
+    border-radius: $radius-pill;
+    font-weight: 600;
     background-color: $color-accent;
     color: $color-surface;
     text-decoration: none;
