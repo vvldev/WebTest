@@ -19,6 +19,7 @@ return [
     'blog' => [
         'home_posts_per_category' => 3,
         'posts_per_page' => 10,
+        'similar_posts_limit' => 3,
     ],
     'view' => [
         'template_dir' => $rootDir . '/templates',

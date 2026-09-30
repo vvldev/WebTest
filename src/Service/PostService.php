@@ -6,6 +6,7 @@ namespace App\Service;
 
 use App\Dto\PaginationDto;
 use App\Dto\PostListQueryDto;
+use App\Dto\PostDto;
 use App\Dto\PostPageDto;
 use App\Exception\NotFoundException;
 use App\Repository\PostRepositoryInterface;
@@ -41,6 +42,19 @@ final class PostService
             $query->page > 1,
             $query->page < $totalPages,
         ));
+    }
+
+    /**
+     * Counts the view first, so the returned post already includes it.
+     */
+    public function viewPost(int $id): PostDto
+    {
+        if (!$this->postRepository->incrementViews($id)) {
+            throw new NotFoundException('Post not found: ' . $id);
+        }
+
+        return $this->postRepository->findById($id)
+            ?? throw new NotFoundException('Post not found: ' . $id);
     }
 
     /**

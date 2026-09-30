@@ -1,0 +1,16 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.similar-posts {
+  margin-top: 56px;
+  padding-top: 40px;
+  border-top: 1px solid $color-border;
+
+  &__title {
+    margin-bottom: 20px;
+  }
+
+  &__list {
+    @include post-grid;
+  }
+}

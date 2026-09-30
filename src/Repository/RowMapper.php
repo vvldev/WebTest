@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Dto\CategoryDto;
+use App\Dto\PostDto;
 use App\Dto\PostPreviewDto;
 use DateTimeImmutable;
 
@@ -39,5 +40,35 @@ final class RowMapper
             (int) $row['views'],
             new DateTimeImmutable((string) $row['published_at']),
         );
+    }
+
+    /**
+     * @param array<string, mixed> $row
+     * @param list<CategoryDto> $categories
+     */
+    public function toPost(array $row, array $categories): PostDto
+    {
+        return new PostDto(
+            (int) $row['id'],
+            (string) $row['title'],
+            (string) $row['description'],
+            $this->splitParagraphs((string) $row['content']),
+            $row['image'] === null ? null : (string) $row['image'],
+            (int) $row['views'],
+            new DateTimeImmutable((string) $row['published_at']),
+            $categories,
+        );
+    }
+
+    /**
+     * Paragraphs are separated by an empty line (possibly with spaces).
+     *
+     * @return list<string>
+     */
+    private function splitParagraphs(string $content): array
+    {
+        $paragraphs = preg_split('/\R\s*\R/u', trim($content), -1, PREG_SPLIT_NO_EMPTY);
+
+        return $paragraphs === false ? [] : $paragraphs;
     }
 }

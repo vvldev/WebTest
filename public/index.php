@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Controller\CategoryController;
 use App\Controller\HomeController;
+use App\Controller\PostController;
 use App\Database\PdoFactory;
 use App\Http\ExceptionHandler;
 use App\Http\Request;
@@ -50,6 +51,12 @@ $controllers = [
         $config['blog']['home_posts_per_category'],
     ),
     CategoryController::class => new CategoryController($categoryRepository, $postService, $renderer),
+    PostController::class => new PostController(
+        $postService,
+        $postRepository,
+        $renderer,
+        $config['blog']['similar_posts_limit'],
+    ),
 ];
 
 $router = new Router(require dirname(__DIR__) . '/config/routes.php', $controllers);
